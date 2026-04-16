@@ -18,6 +18,7 @@ public class Instrutor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private String telefone;
     private String email;
     private String cnh;
 
@@ -26,13 +27,39 @@ public class Instrutor {
 
     @Embedded
     private Endereco endereco;
+    private boolean ativo = true;
 
-    public Instrutor(@Valid InstrutorDTO dados) {
+    public Instrutor(DadosCadastroInstrutor dados) {
         this.nome = dados.nome();
+        this.telefone = dados.telefone();
         this.email = dados.email();
         this.cnh = dados.cnh();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+    }
 
+    public void atualizarInformacoes(DadosAtualizacaoInstrutor dados) {
+        if(dados.nome() != null && !dados.nome().isBlank()) {
+            this.nome = dados.nome();
+        }
+        if(dados.telefone() != null && !dados.telefone().isBlank()) {
+            this.telefone = dados.telefone();
+        }
+        if(dados.endereco() != null && !dados.email().isBlank()) {
+            this.email = dados.email();
+        }
+        if(dados.especialidade() != null) {
+            this.especialidade = dados.especialidade();
+        }
+        if(dados.endereco() != null) {
+            this.endereco.atualizarInformacoes(dados.endereco());
+        }
+        if(dados.ativo()){
+            this.ativo = dados.ativo();
+        }
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }

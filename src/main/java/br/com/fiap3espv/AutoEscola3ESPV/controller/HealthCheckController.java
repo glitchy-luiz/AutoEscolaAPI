@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/health-check")
 public class HealthCheckController {
-
     @GetMapping
-    public String healthCheck(){
-        return "verificação de integridade da API da autoescola 3 ESPV";
+    public String healthCheck() {
+        return "Verificação de integridade da API Auto Escola 3ESPV ok!";
     }
 }
